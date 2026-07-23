@@ -1,0 +1,10 @@
+__pycache__
+.venv
+*.pyc
+.git
+.vscode
+.idea
+ai_chat_app_backup.sql
+pk_001/
+test/
+pk_002/zzztest/
