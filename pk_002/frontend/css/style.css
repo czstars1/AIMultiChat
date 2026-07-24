@@ -1,0 +1,251 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: sans-serif;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0dce5;
+}
+#app{
+    display:flex;
+    width:90%;
+    max-width:1200px;
+    height:90vh;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+#sidebar{
+    width:20%;
+    background: #f0f2f5;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+    border-right:1px solid #ddd;
+}
+#session-head{
+    padding: 16px 10px; 
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+#newSessionBtn{
+    background: #4f8cf7;
+    color:white;
+    border:none;
+    border-radius: 4px;
+    padding:4px 8px;
+    cursor:pointer;
+    font-size:14px;
+}
+#sessionList{
+    list-style: none;
+    flex:1;
+    overflow-y:auto;
+    padding:0;
+}
+#sessionList li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:8px 12px;
+    margin-bottom: 4px;
+    border-radius:6px;
+    cursor:pointer;
+    background: white;
+    transition:background 0.2s;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+#sessionList li:hover{
+    background: #e6ecf5;
+}
+#sessionList li:active{
+    background: #4f8cf7;
+    color:white;
+}
+#sessionList li .delete-btn{
+    color: #999;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 8px;
+}
+#sessionList li .delete-btn:hover{
+    color: #ff4d4f;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    margin-top: auto;           /* 紧贴底部 */
+    background: #f0f2f5;
+    border-radius: 0 0 16px 0;  /* 与侧边栏底部圆角对齐 */
+    position: relative;        /* 用于下拉菜单定位 */
+    gap: 10px;
+    flex-shrink: 0;            /* 防止被压缩 */
+    transition: background 0.2s;
+}
+/* 头像 */
+.user-profile .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #4f8cf7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+/* 用户名 */
+.user-profile .username {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 三点触发按钮 */
+.user-profile .menu-trigger {
+    font-size: 22px;
+    line-height: 1;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0 4px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+    font-weight: bold;
+    transform: rotate(90deg);   /* 让 ⋯ 更像竖三点，可选 */
+}
+
+.user-profile .menu-trigger:hover {
+    background: rgba(79, 140, 247, 0.1);
+    color: #1e293b;
+}
+
+/* ===== 下拉菜单 ===== */
+.dropdown-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);   /* 在按钮上方展开，避免超出屏幕 */
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 6px 0;
+    min-width: 140px;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 100;
+}
+
+/* 显示菜单（点击触发时添加 .active 类） */
+.user-profile.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 菜单项 */
+.dropdown-menu li {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #1e293b;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.dropdown-menu li:hover {
+    background: #f1f5f9;
+}
+
+/* 菜单项之间的分割线（可选） */
+.dropdown-menu li:not(:last-child) {
+    border-bottom: 1px solid #f0f2f5;
+}
+
+/* 小三角指示器（可选） */
+.dropdown-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 16px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid white;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
+}
+#resizer{
+    width:6px;
+    background: #cccccc;
+    cursor:col-resize;
+}
+.chat-container{
+    display:flex;
+    flex-direction: column;
+    flex:1;
+    background: #ffffff
+}
+.messages{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    overflow-y:auto;
+    padding: 15px;
+}
+.input-area{
+    display: flex;
+    border-top:1px solid #ccc;
+    padding:10px;
+}
+.input-area textarea{
+    flex: 1;
+    resize:none;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius: 4px;
+}
+.input-area button{
+    padding:0 20px;
+    margin-left:10px;
+    cursor: pointer;
+}
+.message{
+    margin-bottom:12px;
+    padding:8px 12px;
+    border-radius: 8px;      
+    max-width: 80%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    word-wrap: break-word;
+}
+.user {
+    background: #e3f2fd;
+    align-self: flex-end;
+}
+.assistant {
+    background: #f5f5f5;
+    align-self: flex-start;
+}
