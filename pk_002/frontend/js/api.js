@@ -6,7 +6,13 @@
 function handleAuthError(status){
     if(status===403){
         alert('登录已过期或无权访问，请重新登录');
-        //跳转登陆界面
+        localStorage.removeItem('chat_token');
+        localStorage.removeItem('chat_username');
+        CONFIG.token = null;
+
+        // 2. 显示登录框（这里直接操作 DOM）
+        const overlay = document.getElementById('loginOverlay');
+        if (overlay) overlay.classList.remove('hidden');
         return false;
     }
     return true;
@@ -17,7 +23,7 @@ async function loadSessions(){
     try{
         const response = await fetch('/sessions',{
             headers:{
-                'Authorization':`Bearer ${token}`
+                'Authorization':`Bearer ${CONFIG.token}`
             }
         })
         if(!handleAuthError(response.status))return;
@@ -38,7 +44,7 @@ async function loadSessions(){
 async function loadMessages(sessionId) {
     try {
         const response = await fetch(`/chat/${sessionId}/messages`, {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { 'Authorization': `Bearer ${CONFIG.token}` }
         });
 
         if (!handleAuthError(response.status)) return;
@@ -75,7 +81,7 @@ document.getElementById('newSessionBtn').addEventListener('click',async ()=>{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
-                'Authorization':`Bearer ${token}`
+                'Authorization':`Bearer ${CONFIG.token}`
             },
             body: JSON.stringify({name: name||'未命名会话'})
         });
@@ -99,7 +105,7 @@ async function deleteSession(sessionId) {
     try {
         const response = await fetch(`/sessions/${sessionId}`, {
             method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { 'Authorization': `Bearer ${CONFIG.token}` }
         });
         if (!handleAuthError(response.status)) return;
         if (!response.ok){
@@ -122,3 +128,61 @@ async function deleteSession(sessionId) {
         alert('删除失败: ' + error.message);
     }
 }
+
+
+// 点击登录
+loginBtn.addEventListener('click', async () => {
+    const username = loginUsername.value.trim();
+    const password = loginPassword.value.trim();
+
+    if (!username || !password) {
+        loginError.textContent = '⚠️ 账号和密码不能为空';
+        return;
+    }
+
+    try {
+        // 调用后端登录接口（假设你的后端有 /login）
+        const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name:username, password })
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            let errorMsg = '登录失败';
+            if (err.detail) {
+                if (Array.isArray(err.detail)) {
+                    // 提取所有错误信息合并
+                    errorMsg = err.detail.map(item => item.msg).join('；');
+                } else if (typeof err.detail === 'string') {
+                    errorMsg = err.detail;
+                } else {
+                    errorMsg = JSON.stringify(err.detail);
+                }
+            }
+            loginError.textContent = '❌ ' + errorMsg;
+            return;
+        }
+
+        const data = await response.json();
+        const token = data.token;
+        
+        CONFIG.token = token; // 保存 token
+        localStorage.setItem('chat_token', token);
+        localStorage.setItem('chat_username', username);
+        
+        loginOverlay.classList.add('hidden');// 登录成功：隐藏遮罩，初始化聊天
+
+        document.getElementById('profileUsername').textContent = username;
+        await loadSessions(); // 初始化
+        if (sessions.length > 0) {
+            currentSessionId = sessions[0].id;
+            highlightSession(currentSessionId);
+            await loadMessages(currentSessionId); 
+        }
+
+    } catch (error) {
+        loginError.textContent = '⚠️ 网络请求失败，请检查后端';
+    }
+});

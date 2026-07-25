@@ -1,5 +1,7 @@
 // 全局配置（Token、常量）
 
-let token = '123123';
+const CONFIG = {
+    token: localStorage.getItem('chat_token') || null,
+};
 
 

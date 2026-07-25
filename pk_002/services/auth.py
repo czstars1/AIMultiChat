@@ -24,9 +24,12 @@ def user_register_service(db:Session ,request:UserRegister):
     return user
 
 def user_login_service(db:Session ,request:UserLogin):
+    print(f"【调试】收到的 name: {request.name}")  
     exiting=db.query(UserModel).filter(UserModel.username == request.name).first()
     if not exiting:
         raise HTTPException(status_code=401,detail="不存在此用户")
+    print(f"【调试】数据库中的密码: {exiting.password}")   # 看存的是什么
+    print(f"【调试】收到的密码明文: {request.password}")    # 看前端传了什么
     if exiting.password != request.password:
         raise HTTPException(status_code=401,detail="密码错误")
 

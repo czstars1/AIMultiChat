@@ -1,6 +1,6 @@
 // 主入口（事件绑定、初始化、流式处理）
 
-
+console.log('CONFIG 对象:', CONFIG);
 const sendBtn=document.getElementById("sendBtn")
 const userInput=document.getElementById("userInput")
 const messages=document.getElementById("messages")
@@ -8,6 +8,12 @@ const sessionListEl = document.getElementById('sessionList');
 const newSessionBtn = document.getElementById('newSessionBtn');
 const resizer=document.getElementById('resizer');
 const sidebar=document.getElementById('sidebar');
+
+const loginOverlay = document.getElementById('loginOverlay');
+const loginBtn = document.getElementById('loginBtn');
+const loginUsername = document.getElementById('loginUsername');
+const loginPassword = document.getElementById('loginPassword');
+const loginError = document.getElementById('loginError');
 
 // ======================== 事件绑定 ========================
 sendBtn.addEventListener('click',sendMessage)
@@ -37,13 +43,44 @@ document.addEventListener('mouseup',function (){
     isDragging=false;
 })
 
-document.addEventListener('DOMContentLoaded',async ()=>{
-    await loadSessions();
-    if (sessions.length>0){
-        currentSessionId = sessions[0].id;
-        highlightSession(currentSessionId);
+
+// 按下回车键触发登录
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !loginOverlay.classList.contains('hidden')) {
+        loginBtn.click();
     }
-})
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 如果 token 存在，说明已登录，直接初始化聊天
+    if (CONFIG.token) {
+        // 隐藏登录框
+        document.getElementById('loginOverlay').classList.add('hidden');
+
+        // 加载会话（这里你可以复用登录成功后的初始化逻辑）
+        try {
+            await loadSessions();
+            if (sessions.length > 0) {
+                currentSessionId = sessions[0].id;
+                renderSessionList();
+                loadMessages(currentSessionId);
+            }
+            // 如果有用户信息（如用户名），也可以从 localStorage 取，但你登录时没有存用户名，可以额外存一个
+            // 但最简单的做法是：把用户名也存入 localStorage
+            const savedUsername = localStorage.getItem('chat_username');
+            if (savedUsername) {
+                document.getElementById('profileUsername').textContent = savedUsername;
+            }
+        } catch (error) {
+            // 如果 token 过期（后端返回 403），清除本地存储并显示登录框
+            console.error('自动登录失败:', error);
+            localStorage.removeItem('chat_token');
+            localStorage.removeItem('chat_username');
+            document.getElementById('loginOverlay').classList.remove('hidden');
+        }
+    }
+    // 如果 token 不存在，登录框保持显示，不加载任何会话
+});
 
 // 5. 发送消息（流式版）
 async function sendMessage(){
@@ -76,7 +113,7 @@ async function sendMessage(){
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
-                'Authorization':`Bearer ${token}`
+                'Authorization':`Bearer ${CONFIG.token}`
             },
             body:JSON.stringify(requestData)
         };

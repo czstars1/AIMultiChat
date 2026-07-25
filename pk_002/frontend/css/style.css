@@ -249,3 +249,84 @@ body{
     background: #f5f5f5;
     align-self: flex-start;
 }
+/* 登录遮罩 - 铺满全屏，层级最高 */
+#loginOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* 登录卡片 */
+.login-card {
+    background: white;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    width: 340px;
+    text-align: center;
+}
+
+.login-card h2 {
+    margin-bottom: 24px;
+    color: #1e293b;
+}
+
+.login-field {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.login-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+}
+
+.login-field input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+}
+
+.login-field input:focus {
+    outline: none;
+    border-color: #4f8cf7;
+    box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.2);
+}
+
+#loginBtn {
+    width: 100%;
+    padding: 10px;
+    background: #4f8cf7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 6px;
+}
+
+#loginBtn:hover {
+    background: #3b7ae8;
+}
+
+/* 登录成功后隐藏遮罩 */
+#loginOverlay.hidden {
+    display: none;
+}

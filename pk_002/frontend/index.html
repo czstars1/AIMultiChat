@@ -9,31 +9,47 @@
 </head>
 
 <body>
-<div id="app">
-    <aside id="sidebar">
-        <div id="session-head">
-            <span>会话</span>
-            <button id="newSessionBtn">+ 新建</button>
-        </div>
-        <ul id="sessionList"></ul>
-        <div class="user-profile">
-            <div class="avatar">👤</div>
-            <span class="username">用户名</span>
-            <div class="menu-trigger">⋮</div>
-            <ul class="dropdown-menu">
-                <li>退出登录</li>
-            </ul>
-        </div>
-    </aside>
-    <div id="resizer"></div>
-    <div class="chat-container">
-        <div class="messages" id="messages"></div>
-        <div class="input-area">
-            <textarea id="userInput" placeholder="输入消息......"></textarea>
-            <button id="sendBtn">发送</button>
+    <div id="loginOverlay">
+        <div class="login-card">
+            <h2>AI 聊天登录</h2>
+            <div class="login-field">
+                <label>账号</label>
+                <input type="text" id="loginUsername" placeholder="请输入用户名" value="czq">
+            </div>
+            <div class="login-field">
+                <label>密码</label>
+                <input type="password" id="loginPassword" placeholder="请输入密码" value="czq123">
+            </div>
+            <button id="loginBtn">登 录</button>
+            <div id="loginError" style="color:red; font-size:13px; margin-top:8px;"></div>
         </div>
     </div>
-</div>
+
+    <div id="app">
+        <aside id="sidebar">
+            <div id="session-head">
+                <span>会话</span>
+                <button id="newSessionBtn">+ 新建</button>
+            </div>
+            <ul id="sessionList"></ul>
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <span class="username" id="profileUsername">用户名</span>
+                <div class="menu-trigger">⋮</div>
+                <ul class="dropdown-menu">
+                    <li>退出登录</li>
+                </ul>
+            </div>
+        </aside>
+        <div id="resizer"></div>
+        <div class="chat-container">
+            <div class="messages" id="messages"></div>
+            <div class="input-area">
+                <textarea id="userInput" placeholder="输入消息......"></textarea>
+                <button id="sendBtn">发送</button>
+            </div>
+        </div>
+    </div>
     <script src="js/config.js"></script>
     <script src="js/state.js"></script>
     <script src="js/api.js"></script>
