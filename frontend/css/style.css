@@ -144,7 +144,7 @@ body{
 /* ===== 下拉菜单 ===== */
 .dropdown-menu {
     position: absolute;
-    bottom: calc(100% + 8px);   /* 在按钮上方展开，避免超出屏幕 */
+    bottom: calc(80% + 4px);   /* 在按钮上方展开，避免超出屏幕 */
     right: 0;
     background: white;
     border-radius: 8px;
@@ -185,19 +185,6 @@ body{
     border-bottom: 1px solid #f0f2f5;
 }
 
-/* 小三角指示器（可选） */
-.dropdown-menu::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    right: 16px;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 8px solid white;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
-}
 #resizer{
     width:6px;
     background: #cccccc;

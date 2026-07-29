@@ -1,10 +1,10 @@
 // 主入口（事件绑定、初始化、流式处理）
 
 console.log('CONFIG 对象:', CONFIG);
+const profile = document.querySelector('.user-profile');
 const sendBtn=document.getElementById("sendBtn")
 const userInput=document.getElementById("userInput")
 const messages=document.getElementById("messages")
-const sessionListEl = document.getElementById('sessionList');
 const newSessionBtn = document.getElementById('newSessionBtn');
 const resizer=document.getElementById('resizer');
 const sidebar=document.getElementById('sidebar');
@@ -51,6 +51,42 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+document.querySelector('.menu-trigger').addEventListener('click', (e) => {
+    e.stopPropagation();          // 防止冒泡导致点击外部关闭
+    profile.classList.toggle('active');
+});
+
+// 点击页面其他地方关闭菜单
+document.addEventListener('click', () => {
+    profile.classList.remove('active');
+});
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    // 1. 清除本地存储
+    localStorage.removeItem('chat_token');
+    localStorage.removeItem('chat_username');
+
+    // 2. 清除内存中的 token
+    CONFIG.TOKEN = null;
+
+    // 3. 重置界面元素
+    document.getElementById('profileUsername').textContent = '用户名';   // 恢复默认
+    document.getElementById('messages').innerHTML = '';               // 清空消息
+    document.getElementById('sessionList').innerHTML = '';           // 清空会话列表
+
+    // 4. 清空当前会话状态（如果有）
+    // 如果你有 state 对象，也可以重置 currentSessionId 等
+    // 例如：state.currentSessionId = null; state.sessions = [];
+
+    // 5. 显示登录模态框
+    document.getElementById('loginOverlay').classList.remove('hidden');
+
+    // 6. （可选）关闭下拉菜单
+    document.querySelector('.user-profile').classList.remove('active');
+
+    console.log('已退出登录');
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 如果 token 存在，说明已登录，直接初始化聊天
     if (CONFIG.token) {
@@ -81,6 +117,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     // 如果 token 不存在，登录框保持显示，不加载任何会话
 });
+
+
 
 // 5. 发送消息（流式版）
 async function sendMessage(){

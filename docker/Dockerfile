@@ -5,7 +5,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 3. 先复制依赖清单（这一步是为了利用 Docker 缓存，下次构建更快）
-COPY requirements.txt .
+COPY ../requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 # 5. 把当前电脑上所有的项目代码复制进容器的 /app 目录
@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 8000
 
 # 7. 容器启动时运行的命令：用 uvicorn 启动你的 main.py
-CMD ["python", "-m", "uvicorn", "pk_002.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "src.myproject.main:app", "--host", "0.0.0.0", "--port", "8000"]

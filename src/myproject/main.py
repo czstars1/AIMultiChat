@@ -3,14 +3,13 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
-from pk_002.middleware.timing import add_process_time_header
+from src.myproject.middleware.timing import add_process_time_header
 
-from pk_002.routers import sessions, chat,auth
-from pk_002.database import init_db
-from pk_002.models import db_models  # 导入以确保模型注册到 Base
+from src.myproject.routers import sessions, chat,auth
+from src.myproject.database import init_db
 
 # ----- 1. 将 app 定义为全局变量（模块级别）-----
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 frontend_path = BASE_DIR / "frontend"
 
 app = FastAPI(

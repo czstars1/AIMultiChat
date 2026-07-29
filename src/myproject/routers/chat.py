@@ -1,13 +1,12 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from starlette.responses import StreamingResponse
-from pk_002.database import SessionLocal
-from pk_002.dependencies import auth,database
-from pk_002.dependencies.auth import verify_token
-from pk_002.dependencies.database import get_db
-from pk_002.models.request import ChatRequest
-from pk_002.models.response import ChatResponse
-from pk_002.services import session_service, message_service,llm_service
+from src.myproject.database import SessionLocal
+from src.myproject.dependencies import auth
+from src.myproject.dependencies.auth import verify_token
+from src.myproject.dependencies.database import get_db
+from src.myproject.models.request import ChatRequest
+from src.myproject.services import session_service, message_service,llm_service
 
 router = APIRouter(prefix="/chat",tags=["chat"])
 
@@ -28,7 +27,7 @@ router = APIRouter(prefix="/chat",tags=["chat"])
 #     return ChatResponse(reply=reply, session_id=request.session_id)
 
 @router.post("/stream")
-async def chat_stream(request: ChatRequest,token: str = Depends(auth.verify_token)):
+async def chat_stream(request: ChatRequest, token: str = Depends(auth.verify_token)):
     db=SessionLocal()
     try:
         session = session_service.get_session_by_id(db, request.session_id, token)
@@ -80,6 +79,6 @@ def get_messages(
     if not session:
 
         raise HTTPException(status_code=404, detail="Session not found")
-    msgs = message_service.get_messages_by_session(db,session_id,limit=50)
+    msgs = message_service.get_messages_by_session(db, session_id, limit=50)
 
     return [{"role":msg.role,"content":msg.content,"created_at":msg.created_at}for msg in msgs]

@@ -3,8 +3,8 @@ from datetime import datetime
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from pk_002.models.request import UserRegister, UserLogin
-from pk_002.models.db_models import User as UserModel
+from src.myproject.models.request import UserRegister, UserLogin
+from src.myproject.models.db_models import User as UserModel
 
 
 def user_register_service(db:Session ,request:UserRegister):

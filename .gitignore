@@ -20,12 +20,10 @@ __pycache__/
 
 # 数据库备份（刚才导出的备份文件）
 *.sql
-backup.sql
+data/
 
 # Docker 相关（数据卷等）
 mysql_data/
 
 #其他
-pk_001/
-test/
-pk_002/zzztest/
+tests/

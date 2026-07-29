@@ -6,10 +6,10 @@ from pathlib import Path
 import httpx
 from dotenv import load_dotenv
 
-env_file = Path(__file__).resolve().parent.parent.parent / ".env"
+env_file = Path(__file__).resolve().parent.parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_file)
 OLLAMA_CHAT_API = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
-MODEL_NAME="qwen2.5:1.5b"
+MODEL_NAME="qwen2.5:7b"
 MAXTIMES=2
 RETRY_INTERVAL=3
 

@@ -1,6 +1,6 @@
 import uuid
 from sqlalchemy.orm import Session
-from pk_002.models.db_models import Session as SessionModel
+from src.myproject.models.db_models import Session as SessionModel
 
 
 def create_session(db:Session,name:str,owner:str):

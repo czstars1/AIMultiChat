@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   # 服务1：数据库（MySQL）
   db:
@@ -17,7 +16,9 @@ services:
 
   # 服务2：你的 FastAPI 应用
   app:
-    build: .                             # 根据当前目录的 Dockerfile 构建
+    build:
+       context: .
+       dockerfile: docker/Dockerfile                            # 根据此目录的 Dockerfile 构建
     ports:
       - "8000:8000"                      # 映射到本机 8000 端口
     depends_on:

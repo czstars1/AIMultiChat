@@ -1,4 +1,4 @@
-from pk_002.database import SessionLocal
+from src.myproject.database import SessionLocal
 
 
 async def get_db():

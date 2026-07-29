@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime, ForeignKey, Enum as SAEnum, Text
 from sqlalchemy.orm import relationship
 
-from pk_002.database import Base
+from src.myproject.database import Base
 from datetime import datetime
 
 class User(Base):

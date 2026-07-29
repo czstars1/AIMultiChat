@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 from sqlalchemy.orm import Session
-from pk_002.models.db_models import Message
+from src.myproject.models.db_models import Message
 
 def add_message(db:Session,session_id:str,role:str,content:str):
     message=Message(
