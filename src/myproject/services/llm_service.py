@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 env_file = Path(__file__).resolve().parent.parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_file)
 OLLAMA_CHAT_API = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
-MODEL_NAME="qwen2.5:7b"
+MODEL_NAME=os.getenv("MODEL_NAME","qwen2.5:7b")
 MAXTIMES=2
 RETRY_INTERVAL=3
 
@@ -17,7 +17,7 @@ async def call_llm(message: list,stream: bool = False)-> str:
     payload ={
         "model": MODEL_NAME,
         "messages": message,
-        "stream":True,
+        "stream":False,
         "keep_alive": -1
     }
     async with httpx.AsyncClient(timeout=6000) as client:
@@ -62,7 +62,7 @@ async def stream_llm(message:list):
         "stream": True,
         "keep_alive": -1
     }
-    print(f"📤 发送给 Ollama 的消息数量: {len(message)}")
+
     async with httpx.AsyncClient(timeout=6000) as client:
         async with client.stream("post",OLLAMA_CHAT_API,json=payload)as resp:
             resp.raise_for_status()
