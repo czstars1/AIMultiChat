@@ -18,3 +18,6 @@ class UserRegister(BaseModel):
 class UserLogin(BaseModel):
     name: str = Field(...,min_length=3,max_length=20)
     password: str = Field(...,min_length=6)
+
+class RAGRequest(BaseModel):
+    message: str

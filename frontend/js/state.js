@@ -1,8 +1,6 @@
-// 全局状态（会话列表、当前ID）
-
-
+// 全局状态
 let currentSessionId = null;
-let sessions = [];
-let isDragging = false;      // 1. 是否正在拖拽
-let startX = 0;             // 2. 鼠标按下的位置
-let startWidth = 0;         // 3. 左侧面板按下的宽度
+let sessions = [];              // 每个元素: { id, name, mode: 'chat'|'rag' }
+let isDragging = false;
+let startX = 0;
+let startWidth = 0;

@@ -1,117 +1,155 @@
+/* ===== 全局重置 ===== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
-    font-family: sans-serif;
-    height:100vh;
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e0dce5;
-}
-#app{
-    display:flex;
-    width:90%;
-    max-width:1200px;
-    height:90vh;
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-#sidebar{
-    width:20%;
     background: #f0f2f5;
-    padding: 0;
-    display:flex;
+}
+
+/* ===== 主应用容器 ===== */
+#app {
+    display: flex;
+    width: 94%;
+    max-width: 1400px;
+    height: 92vh;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== 侧边栏 ===== */
+#sidebar {
+    width: 260px;
+    min-width: 180px;
+    background: #f8fafc;
+    border-right: 1px solid #e9edf2;
+    display: flex;
     flex-direction: column;
-    border-right:1px solid #ddd;
+    padding: 16px 0 0 0;
+    transition: width 0.1s;
 }
-#session-head{
-    padding: 16px 10px; 
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    font-weight: bold;
-}
-#newSessionBtn{
-    background: #4f8cf7;
-    color:white;
-    border:none;
-    border-radius: 4px;
-    padding:4px 8px;
-    cursor:pointer;
-    font-size:14px;
-}
-#sessionList{
-    list-style: none;
-    flex:1;
-    overflow-y:auto;
-    padding:0;
-}
-#sessionList li{
+
+#session-head {
+    padding: 0 16px 16px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:8px 12px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1e293b;
+    border-bottom: 1px solid #e9edf2;
+}
+
+#session-head button {
+    background: #4f8cf7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#session-head button:hover {
+    background: #3b7ae8;
+}
+
+#sessionList {
+    flex: 1;
+    list-style: none;
+    overflow-y: auto;
+    padding: 12px 8px;
+    margin: 0;
+}
+
+#sessionList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 10px;
     margin-bottom: 4px;
-    border-radius:6px;
-    cursor:pointer;
-    background: white;
-    transition:background 0.2s;
-    font-size:14px;
-    white-space:nowrap;
-    overflow:hidden;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.15s;
+    font-size: 14px;
+    color: #1e293b;
+    position: relative;
+}
+
+#sessionList li:hover {
+    background: #eef2f6;
+}
+
+#sessionList li.active {
+    background: #e0e7ff;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+#sessionList li .session-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
-#sessionList li:hover{
-    background: #e6ecf5;
+
+#sessionList li .session-mode-tag {
+    font-size: 10px;
+    background: #dbeafe;
+    color: #2563eb;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    flex-shrink: 0;
 }
-#sessionList li:active{
-    background: #4f8cf7;
-    color:white;
-}
-#sessionList li .delete-btn{
-    color: #999;
+
+#sessionList li .delete-btn {
+    color: #94a3b8;
     cursor: pointer;
     font-weight: bold;
     margin-left: 8px;
+    font-size: 18px;
+    line-height: 1;
+    transition: color 0.15s;
 }
-#sessionList li .delete-btn:hover{
-    color: #ff4d4f;
+#sessionList li .delete-btn:hover {
+    color: #ef4444;
 }
+
+/* ===== 用户资料 ===== */
 .user-profile {
     display: flex;
     align-items: center;
-    padding: 12px 10px;
-    margin-top: auto;           /* 紧贴底部 */
-    background: #f0f2f5;
-    border-radius: 0 0 16px 0;  /* 与侧边栏底部圆角对齐 */
-    position: relative;        /* 用于下拉菜单定位 */
+    padding: 14px 16px;
+    border-top: 1px solid #e9edf2;
+    margin-top: auto;
     gap: 10px;
-    flex-shrink: 0;            /* 防止被压缩 */
-    transition: background 0.2s;
+    position: relative;
 }
-/* 头像 */
+
 .user-profile .avatar {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: #4f8cf7;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
     flex-shrink: 0;
-    user-select: none;
 }
 
-/* 用户名 */
 .user-profile .username {
     flex: 1;
     font-size: 14px;
@@ -122,198 +160,342 @@ body{
     text-overflow: ellipsis;
 }
 
-/* 三点触发按钮 */
 .user-profile .menu-trigger {
-    font-size: 22px;
-    line-height: 1;
-    color: #6b7280;
+    font-size: 20px;
+    color: #94a3b8;
     cursor: pointer;
     padding: 0 4px;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-    user-select: none;
-    font-weight: bold;
-    transform: rotate(90deg);   /* 让 ⋯ 更像竖三点，可选 */
+    transform: rotate(90deg);
 }
-
 .user-profile .menu-trigger:hover {
-    background: rgba(79, 140, 247, 0.1);
     color: #1e293b;
 }
 
-/* ===== 下拉菜单 ===== */
 .dropdown-menu {
     position: absolute;
-    bottom: calc(80% + 4px);   /* 在按钮上方展开，避免超出屏幕 */
-    right: 0;
+    bottom: calc(100% + 6px);
+    right: 8px;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     padding: 6px 0;
-    min-width: 140px;
+    min-width: 130px;
     list-style: none;
     opacity: 0;
     visibility: hidden;
     transform: translateY(6px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    transition: all 0.2s;
     z-index: 100;
 }
 
-/* 显示菜单（点击触发时添加 .active 类） */
 .user-profile.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* 菜单项 */
 .dropdown-menu li {
     padding: 8px 16px;
     font-size: 14px;
     color: #1e293b;
     cursor: pointer;
     transition: background 0.15s;
-    white-space: nowrap;
 }
-
 .dropdown-menu li:hover {
     background: #f1f5f9;
 }
 
-/* 菜单项之间的分割线（可选） */
-.dropdown-menu li:not(:last-child) {
-    border-bottom: 1px solid #f0f2f5;
+/* ===== 拖拽分隔条 ===== */
+#resizer {
+    width: 4px;
+    background: transparent;
+    cursor: col-resize;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+#resizer:hover {
+    background: #d1d9e6;
 }
 
-#resizer{
-    width:6px;
-    background: #cccccc;
-    cursor:col-resize;
-}
-.chat-container{
-    display:flex;
-    flex-direction: column;
-    flex:1;
-    background: #ffffff
-}
-.messages{
+/* ===== 聊天容器 ===== */
+.chat-container {
     display: flex;
     flex-direction: column;
-    flex:1;
-    overflow-y:auto;
-    padding: 15px;
-}
-.input-area{
-    display: flex;
-    border-top:1px solid #ccc;
-    padding:10px;
-}
-.input-area textarea{
     flex: 1;
-    resize:none;
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius: 4px;
+    min-width: 0;
+    background: #ffffff;
 }
-.input-area button{
-    padding:0 20px;
-    margin-left:10px;
-    cursor: pointer;
+
+/* ===== 知识库状态栏 ===== */
+.knowledge-bar {
+    padding: 10px 20px;
+    background: #fafcff;
+    border-bottom: 1px solid #e9edf2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #475569;
+    flex-shrink: 0;
 }
-.message{
-    margin-bottom:12px;
-    padding:8px 12px;
-    border-radius: 8px;      
-    max-width: 80%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+/* ===== 消息区域 ===== */
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 16px;
+    line-height: 1.6;
+    font-size: 15px;
     word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
-.user {
-    background: #e3f2fd;
+
+.message.user {
+    background: #e0e7ff;
     align-self: flex-end;
+    border-bottom-right-radius: 4px;
 }
-.assistant {
-    background: #f5f5f5;
+
+.message.assistant {
+    background: #f1f5f9;
     align-self: flex-start;
+    border-bottom-left-radius: 4px;
 }
-/* 登录遮罩 - 铺满全屏，层级最高 */
+
+.message .source-citation {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed #d1d5db;
+}
+
+/* ===== 输入区 ===== */
+.input-area {
+    display: flex;
+    align-items: flex-end;
+    padding: 16px 20px 20px 20px;
+    border-top: 1px solid #e9edf2;
+    background: #ffffff;
+    gap: 10px;
+}
+
+.input-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.file-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: #64748b;
+    background: #f1f5f9;
+    transition: background 0.2s, color 0.2s;
+}
+
+.file-upload-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.file-upload-btn input[type="file"] {
+    display: none;
+}
+
+.input-area textarea {
+    flex: 1;
+    resize: none;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-height: 48px;
+    max-height: 150px;
+    line-height: 1.5;
+    background: #f8fafc;
+}
+
+.input-area textarea:focus {
+    border-color: #4f8cf7;
+    box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.15);
+    background: white;
+}
+
+.input-area button {
+    padding: 10px 24px;
+    background: #4f8cf7;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    white-space: nowrap;
+    height: 48px;
+}
+
+.input-area button:hover {
+    background: #3b7ae8;
+}
+
+.input-area button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ===== 登录遮罩 ===== */
 #loginOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
+#loginOverlay.hidden {
+    display: none;
+}
 
-/* 登录卡片 */
 .login-card {
     background: white;
-    padding: 40px 32px;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    width: 340px;
+    padding: 40px 36px;
+    border-radius: 24px;
+    width: 360px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
-
 .login-card h2 {
-    margin-bottom: 24px;
+    font-weight: 600;
     color: #1e293b;
+    margin-bottom: 28px;
 }
-
 .login-field {
     text-align: left;
     margin-bottom: 18px;
 }
-
 .login-field label {
     display: block;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     color: #475569;
     margin-bottom: 4px;
 }
-
 .login-field input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
-    box-sizing: border-box;
-    transition: border 0.2s;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: border 0.2s, box-shadow 0.2s;
 }
-
 .login-field input:focus {
     outline: none;
     border-color: #4f8cf7;
     box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.2);
 }
-
 #loginBtn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #4f8cf7;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
     margin-top: 6px;
 }
-
 #loginBtn:hover {
     background: #3b7ae8;
 }
+#loginError {
+    min-height: 20px;
+}
 
-/* 登录成功后隐藏遮罩 */
-#loginOverlay.hidden {
+/* ===== 模式选择弹窗 ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+.modal-overlay.hidden {
     display: none;
+}
+
+.modal-card {
+    background: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    width: 360px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.modal-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+.mode-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.mode-option {
+    padding: 14px 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    background: white;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.mode-option:hover {
+    border-color: #4f8cf7;
+    background: #f8faff;
+}
+.mode-option:active {
+    transform: scale(0.97);
+}
+.modal-cancel {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+.modal-cancel:hover {
+    color: #1e293b;
 }

@@ -1,15 +1,9 @@
 import asyncio
 import json
-import os
 from pathlib import Path
-
 import httpx
-from dotenv import load_dotenv
+from src.myproject.config import OLLAMA_CHAT_API, MODEL_NAME
 
-env_file = Path(__file__).resolve().parent.parent.parent.parent / ".env"
-load_dotenv(dotenv_path=env_file)
-OLLAMA_CHAT_API = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
-MODEL_NAME=os.getenv("MODEL_NAME","qwen2.5:7b")
 MAXTIMES=2
 RETRY_INTERVAL=3
 

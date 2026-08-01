@@ -16,5 +16,7 @@ def add_message(db:Session,session_id:str,role:str,content:str):
     db.refresh(message)
     return message
 
-def get_messages_by_session(db:Session,session_id:str,limit:int =50):
-    return db.query(Message).filter(Message.session_id==session_id).order_by(Message.created_at.desc()).limit(limit).all()
+def get_messages_by_session(db: Session, session_id: str, limit: int = 50):
+    return db.query(Message).filter(
+        Message.session_id == session_id
+    ).order_by(Message.created_at.asc()).limit(limit).all()

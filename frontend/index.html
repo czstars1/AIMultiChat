@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>AI 聊天 - 多会话</title>
-
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 智能助手</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
+    <!-- 登录遮罩 -->
     <div id="loginOverlay">
         <div class="login-card">
-            <h2>AI 聊天登录</h2>
+            <h2>🔐 登录</h2>
             <div class="login-field">
                 <label>账号</label>
-                <input type="text" id="loginUsername" placeholder="请输入用户名" value="czq">
+                <input type="text" id="loginUsername" placeholder="请输入用户名" value="czq" />
             </div>
             <div class="login-field">
                 <label>密码</label>
-                <input type="password" id="loginPassword" placeholder="请输入密码" value="czq123">
+                <input type="password" id="loginPassword" placeholder="请输入密码" value="czq123" />
             </div>
             <button id="loginBtn">登 录</button>
-            <div id="loginError" style="color:red; font-size:13px; margin-top:8px;"></div>
+            <div id="loginError" style="color: #ef4444; font-size: 13px; margin-top: 8px;"></div>
         </div>
     </div>
 
+    <!-- 主应用 -->
     <div id="app">
+        <!-- 侧边栏 -->
         <aside id="sidebar">
             <div id="session-head">
-                <span>会话</span>
+                <span>💬 会话</span>
                 <button id="newSessionBtn">+ 新建</button>
             </div>
             <ul id="sessionList"></ul>
@@ -42,14 +43,47 @@
             </div>
         </aside>
         <div id="resizer"></div>
+
+        <!-- 聊天主区域 -->
         <div class="chat-container">
+            <!-- 知识库状态栏（简化） -->
+            <div class="knowledge-bar" id="knowledgeBar">
+                <span id="docList">📄 暂无文档</span>
+                <span id="modeIndicator" style="font-weight: 500; color: #4f8cf7;">模式: 正常</span>
+            </div>
+
+            <!-- 消息区 -->
             <div class="messages" id="messages"></div>
+
+            <!-- 输入区 -->
             <div class="input-area">
-                <textarea id="userInput" placeholder="输入消息......"></textarea>
+                <!-- 左侧功能区（可扩展） -->
+                <div class="input-actions">
+                    <label class="file-upload-btn" id="uploadBtn" title="上传文档（仅RAG模式有效）">
+                        📎
+                        <input type="file" id="fileInput" accept=".txt,.pdf,.docx" />
+                    </label>
+                </div>
+                <!-- 文本框 -->
+                <textarea id="userInput" placeholder="输入消息..." rows="1"></textarea>
+                <!-- 发送按钮 -->
                 <button id="sendBtn">发送</button>
             </div>
         </div>
     </div>
+
+    <!-- 模式选择弹窗（新建会话时弹出） -->
+    <div id="modeModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3>选择会话模式</h3>
+            <div class="mode-options">
+                <button class="mode-option" data-mode="chat">💬 正常聊天</button>
+                <button class="mode-option" data-mode="rag">📚 RAG 知识库</button>
+            </div>
+            <button id="modalCancelBtn" class="modal-cancel">取消</button>
+        </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/state.js"></script>
     <script src="js/api.js"></script>

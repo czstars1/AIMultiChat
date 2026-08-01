@@ -1,18 +1,10 @@
 import os
 import uuid
 from pathlib import Path
-
 import pdfplumber
-from chromadb import PersistentClient
+
 from docx import Document
-from sentence_transformers import SentenceTransformer
-
-base_dir = Path(__file__).resolve().parent
-db_path = base_dir / "data" / "chroma_db"
-
-client = PersistentClient(path=str(db_path))
-collection = client.get_or_create_collection(name="knowledge_base")
-model = SentenceTransformer('all-MiniLM-L6-v2')
+from src.myproject.deps import model,collection
 
 def index_file(file_path: str, chunk_size: int = 500,overlap: int = 50):
     """处理文件，切片后存入向量数据库"""
