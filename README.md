@@ -186,6 +186,6 @@ MIT License
 
 ---
 
-**作者**：[陈祖其](https://github.com/czstars1)
+**作者**：[chenzuqi](https://github.com/czstars1)
 
 邮箱：chenzuqi2027@163.com
