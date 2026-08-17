@@ -179,11 +179,6 @@ docker-compose up -d
 
 - [ ] 增加更多内置工具（日历、邮件、计算器等）
 
-
-## 📄 License
-
-MIT License
-
 ---
 
 **作者**：[chenzuqi](https://github.com/czstars1)
