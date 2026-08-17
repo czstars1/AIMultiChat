@@ -126,7 +126,6 @@ docker-compose up -d
 |`OLLAMA_BASE_URL`|Ollama 服务地址|`http://localhost:11434`|
 |`DEFAULT_MODEL`|默认大模型|`qwen2.5:7b`|
 |`CHROMA_PERSIST_DIR`|ChromaDB 持久化目录|`./chroma_data`|
-|`SECRET_KEY`|JWT 签名密钥|`your-secret-key`|
 
 ## 📊 核心功能演示
 
